@@ -51,13 +51,26 @@ def creacionTareas(request):
             return redirect('tareas')
         except ValueError:
             return render(request,'creacion_tareas.html',{
-            'form': FormularioTareas ,
+            'form': FormularioTareas,
             'error': 'Por favor, ingresa datos reales'
     })
 
-def detalleTareas(request,tarea_id):
-    tarea = get_object_or_404(Tarea, pk=tarea_id)
-    return render(request, 'tareas_detalles.html', {'tarea': tarea})
+def detalleTareas(request, tarea_id):
+    if request.method=='GET':  
+        tarea = get_object_or_404(Tarea, pk=tarea_id,user=request.user)
+        formulario = FormularioTareas(instance=tarea)
+        return render(request, 'tareas_detalles.html', {'tarea': tarea, 'formulario': formulario})
+    else:
+        try:
+            tarea=get_object_or_404(Tarea,pk=tarea_id,user=request.user)
+            formulario=FormularioTareas(request.POST,instance=tarea)
+            formulario.save()
+            return redirect('tareas')
+        except ValueError:
+            return render(request, 'tareas_detalles.html', 
+            {'tarea': tarea, 'formulario': formulario,
+            'error':'Erorr al actualizar tarea'})
+        
 
 def cerrar_sesion(request):
     logout(request)
