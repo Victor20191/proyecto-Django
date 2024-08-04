@@ -24,8 +24,11 @@ urlpatterns = [
     path('', views.inicio, name='inicio'),
     path('registro/', views.registro, name='registro'),
     path('tareas/', views.tareas, name='tareas'),
+    path('tareas/tareasFinalizadas/', views.tareasFinalizadas, name='tareasFinalizadas'),
     path('tareas/creacion/', views.creacionTareas, name='creacionTareas'),
     path('tareas/<int:tarea_id>', views.detalleTareas, name='detalleTareas'),
+    path('tareas/<int:tarea_id>/completada', views.tareasCompletadas, name='tareasCompletadas'),
+    path('tareas/<int:tarea_id>/borrarTareas', views.borrarTareas, name='borrarTareas'),
     path('cerrarSesion/', views.cerrar_sesion, name='cerrar_sesion'),
     path('iniciarSesion/', views.iniciarSesion, name='iniciarSesion'),
 ]

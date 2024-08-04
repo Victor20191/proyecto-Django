@@ -6,7 +6,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from .formularios import FormularioTareas
 from .models import Tarea
-
+from django.utils import timezone
 def inicio(request):
     return render(request, 'inicio.html')
 
@@ -34,7 +34,12 @@ def registro(request):
             })
 
 def tareas(request):
-    tareas=Tarea.objects.filter(usuario=request.user)
+    tareas=Tarea.objects.filter(usuario=request.user,finalizado__isnull=True)
+    return render(request, 'tareas.html',{'tareas':tareas})
+
+
+def tareasFinalizadas(request):
+    tareas=Tarea.objects.filter(usuario=request.user,finalizado__isnull=False).order_by('-finalizado')
     return render(request, 'tareas.html',{'tareas':tareas})
 
 def creacionTareas(request):
@@ -57,12 +62,12 @@ def creacionTareas(request):
 
 def detalleTareas(request, tarea_id):
     if request.method=='GET':  
-        tarea = get_object_or_404(Tarea, pk=tarea_id,user=request.user)
+        tarea = get_object_or_404(Tarea, pk=tarea_id,usuario=request.user)
         formulario = FormularioTareas(instance=tarea)
         return render(request, 'tareas_detalles.html', {'tarea': tarea, 'formulario': formulario})
     else:
         try:
-            tarea=get_object_or_404(Tarea,pk=tarea_id,user=request.user)
+            tarea=get_object_or_404(Tarea,pk=tarea_id,usuario=request.user)
             formulario=FormularioTareas(request.POST,instance=tarea)
             formulario.save()
             return redirect('tareas')
@@ -71,6 +76,22 @@ def detalleTareas(request, tarea_id):
             {'tarea': tarea, 'formulario': formulario,
             'error':'Erorr al actualizar tarea'})
         
+
+def tareasCompletadas(request,tarea_id):
+    tarea=get_object_or_404(Tarea,pk=tarea_id,usuario=request.user)
+    if request.method=='POST':
+        tarea.finalizado=timezone.now()
+        tarea.save()
+        return redirect('tareas')
+
+
+def borrarTareas(request,tarea_id):
+    tarea=get_object_or_404(Tarea,pk=tarea_id,usuario=request.user)
+    if request.method=='POST':
+        tarea.delete()
+        return redirect('tareas')
+
+
 
 def cerrar_sesion(request):
     logout(request)
@@ -86,7 +107,7 @@ def iniciarSesion(request):
         if user is None:
             return render(request, 'iniciarSesion.html', {
                 'form': AuthenticationForm,
-                'error': 'Usuario y contraseña son incorrectos'
+                'error': 'user y contraseña son incorrectos'
             })
         else:
             login(request, user)

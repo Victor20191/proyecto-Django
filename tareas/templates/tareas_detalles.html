@@ -1,12 +1,22 @@
 {% extends "templates.html" %}
 
-{% block content%}
-<h1>{{tarea.titulo}}</h1>
-{{error}}
+{% block content %}
+<h1>{{ tarea.titulo }}</h1>
+<p>Fecha finzalización: {{tarea.finalizado}}</p>
+{{ error }}
 <form action='' method='POST'>
     {% csrf_token %}
-{{formulario.as_p}}
-<button>Actualizar</button>
+    {{ formulario.as_p }}
+    <button>Actualizar</button>
+</form>
+
+<form action="{% url 'tareasCompletadas' tarea.id %}" method='POST'>
+    {% csrf_token %}
+    <button>Completar tarea</button>
+</form>
+
+<form action="{% url 'borrarTareas' tarea.id %}" method='POST'>
+    {% csrf_token %}
+    <button>Borrar tarea</button>
 </form>
 {% endblock %}
-
