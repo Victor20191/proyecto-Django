@@ -1,21 +1,28 @@
 {% extends 'templates.html' %}
 
 {% block content %}
+<main class='container'>
+<div class='row'>
+    <div class='col-md-6 offset-md-3'>
 <h1>Tareas</h1>
 
-<ul>
+<ul class='list-group'>
     {% for tarea in tareas %}
-        <li>
-            <a href="{% url 'detalleTareas' tarea.id %}">
+        <a class='list-group-item' href="{% url 'detalleTareas' tarea.id %}">
+         <header class='d-flex justify-content-between'>
             {% if tarea.importancia %}
-                <strong>{{ tarea.titulo }}</strong>
-            {% else %}
-                {{ tarea.titulo }}
-            {% endif %}
-            </a>
+            <h1 class='fw-bold text-success'>{{ tarea.titulo }}</h1>
+        {% else %}
+            <h2 class='fw-bold'>{{ tarea.titulo }}</h2>
+        {% endif %}
+        <p>{{ tarea.usuario.username }}</p>
+         </header>
             <p>{{ tarea.descripcion }}</p>
-            <p>{{ tarea.usuario.username }}</p>
-        </li>
+            </a>
+          
     {% endfor %}
 </ul>
+</div>
+</div>
+</main>
 {% endblock %}

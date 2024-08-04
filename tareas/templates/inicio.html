@@ -1,7 +1,82 @@
 {% extends "templates.html" %}
 
 {% block content%}
-<h1>Inicio Django</h1>
-<button>Enviar</button>
+<h1>Descripción del Proyecto: Aplicación CRUD con Django</h1>
+<body>
+    <main class="container mt-4">
+        <section class="card card-body">
+            <p>Este proyecto consiste en una aplicación web desarrollada con el framework Django, que implementa un sistema de gestión de tareas (CRUD: Crear, Leer, Actualizar, Borrar). La aplicación permite a los usuarios autenticados gestionar sus tareas, visualizar las tareas completadas y pendientes, y manejar su perfil de usuario.</p>
+            
+            <h2>Características Principales:</h2>
+            
+            <h3>Registro e Inicio de Sesión:</h3>
+            <ul>
+                <li>Los usuarios pueden registrarse en la aplicación y crear una cuenta.</li>
+                <li>Los usuarios pueden iniciar sesión y cerrar sesión.</li>
+            </ul>
+            
+            <h3>Gestión de Tareas:</h3>
+            <ul>
+                <li><strong>Crear Tareas:</strong> Los usuarios pueden crear nuevas tareas con campos como título, descripción, fecha de finalización e importancia.</li>
+                <li><strong>Visualizar Tareas:</strong> Los usuarios pueden ver una lista de sus tareas pendientes y completadas.</li>
+                <li><strong>Actualizar Tareas:</strong> Los usuarios pueden actualizar detalles de las tareas existentes.</li>
+                <li><strong>Borrar Tareas:</strong> Los usuarios pueden borrar tareas.</li>
+            </ul>
+            
+            <h3>Autenticación y Autorización:</h3>
+            <ul>
+                <li>La aplicación asegura que solo los usuarios autenticados puedan acceder a las funcionalidades de gestión de tareas.</li>
+                <li>Las tareas están vinculadas a los usuarios, de modo que cada usuario solo puede gestionar sus propias tareas.</li>
+            </ul>
+            
+            <h3>Interfaz de Usuario con Bootstrap:</h3>
+            <ul>
+                <li>La interfaz de usuario utiliza Bootstrap para un diseño responsivo y estilizado.</li>
+                <li>El menú de navegación se adapta según el estado de autenticación del usuario (mostrar opciones relevantes para usuarios autenticados y no autenticados).</li>
+            </ul>
+            
+            <h2>Estructura del Proyecto:</h2>
+            
+            <h3>Modelos:</h3>
+            <ul>
+                <li><strong>Tarea:</strong> Modelo que representa una tarea con campos como título, descripción, fecha de creación, fecha de finalización, importancia y usuario propietario.</li>
+            </ul>
+            
+            <h3>Formularios:</h3>
+            <ul>
+                <li><strong>FormularioTareas:</strong> Formulario basado en el modelo Tarea para la creación y actualización de tareas.</li>
+            </ul>
+            
+            <h3>Vistas:</h3>
+            <ul>
+                <li><strong>inicio:</strong> Vista de inicio de la aplicación.</li>
+                <li><strong>registro:</strong> Vista para el registro de nuevos usuarios.</li>
+                <li><strong>iniciarSesion:</strong> Vista para el inicio de sesión.</li>
+                <li><strong>cerrar_sesion:</strong> Vista para cerrar la sesión.</li>
+                <li><strong>tareas:</strong> Vista para visualizar las tareas pendientes del usuario autenticado.</li>
+                <li><strong>creacionTareas:</strong> Vista para la creación de nuevas tareas.</li>
+                <li><strong>detalleTareas:</strong> Vista para visualizar y actualizar los detalles de una tarea específica.</li>
+                <li><strong>tareasFinalizadas:</strong> Vista para visualizar las tareas completadas.</li>
+            </ul>
+            
+            <h3>Plantillas:</h3>
+            <ul>
+                <li><strong>templates.html:</strong> Plantilla base que utiliza Bootstrap para la estructura y el diseño.</li>
+                <li><strong>registro.html, iniciar_sesion.html, tareas.html, creacion_tareas.html, tareas_detalles.html:</strong> Plantillas específicas para cada funcionalidad, extendiendo la plantilla base.</li>
+            </ul>
+            
+            <h2>Tecnologías Utilizadas:</h2>
+            
+            <ul>
+                <li><strong>Backend:</strong> Django</li>
+                <li><strong>Frontend:</strong> HTML, CSS, Bootstrap</li>
+                <li><strong>Base de Datos:</strong> SQLite (puede ser reemplazada por cualquier base de datos compatible con Django)</li>
+                <li><strong>Autenticación y Autorización:</strong> Sistema de autenticación integrado de Django</li>
+            </ul>
+        </section>
+    </main>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+0cRY4ke+bYy1XtlP5Fmg6tfl6TOo" crossorigin="anonymous"></script>
+</body>
 {% endblock %}
 

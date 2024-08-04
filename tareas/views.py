@@ -7,6 +7,10 @@ from django.db import IntegrityError
 from .formularios import FormularioTareas
 from .models import Tarea
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+
+
+
 def inicio(request):
     return render(request, 'inicio.html')
 
@@ -32,16 +36,17 @@ def registro(request):
                 'form': UserCreationForm,
                 'error': "Las contraseñas no coinciden"
             })
-
+@login_required
 def tareas(request):
     tareas=Tarea.objects.filter(usuario=request.user,finalizado__isnull=True)
     return render(request, 'tareas.html',{'tareas':tareas})
 
-
+@login_required
 def tareasFinalizadas(request):
     tareas=Tarea.objects.filter(usuario=request.user,finalizado__isnull=False).order_by('-finalizado')
     return render(request, 'tareas.html',{'tareas':tareas})
 
+@login_required
 def creacionTareas(request):
     if request.method=='GET':
         return render(request,'creacion_tareas.html',{
@@ -59,7 +64,7 @@ def creacionTareas(request):
             'form': FormularioTareas,
             'error': 'Por favor, ingresa datos reales'
     })
-
+@login_required
 def detalleTareas(request, tarea_id):
     if request.method=='GET':  
         tarea = get_object_or_404(Tarea, pk=tarea_id,usuario=request.user)
@@ -76,7 +81,7 @@ def detalleTareas(request, tarea_id):
             {'tarea': tarea, 'formulario': formulario,
             'error':'Erorr al actualizar tarea'})
         
-
+@login_required
 def tareasCompletadas(request,tarea_id):
     tarea=get_object_or_404(Tarea,pk=tarea_id,usuario=request.user)
     if request.method=='POST':
@@ -84,7 +89,7 @@ def tareasCompletadas(request,tarea_id):
         tarea.save()
         return redirect('tareas')
 
-
+@login_required
 def borrarTareas(request,tarea_id):
     tarea=get_object_or_404(Tarea,pk=tarea_id,usuario=request.user)
     if request.method=='POST':
@@ -92,7 +97,7 @@ def borrarTareas(request,tarea_id):
         return redirect('tareas')
 
 
-
+@login_required
 def cerrar_sesion(request):
     logout(request)
     return redirect('inicio')

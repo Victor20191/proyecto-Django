@@ -1,11 +1,11 @@
 {% extends "templates.html" %}
 
 {% block content %}
-<h1>Formulario creación tareas</h1>
+<h1>Creación tareas</h1>
 {{error}}
 <form actiion="/tareas/creacion/" method="POST">
     {% csrf_token %}
     {{form}}
-    <button>Guardar</button>
+    <button type="submit" class="btn btn-primary mt-2">Guardar</button>
 </form>
 {% endblock %}
