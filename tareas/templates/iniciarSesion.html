@@ -1,0 +1,10 @@
+{% extends 'templates.html' %}
+
+{% block content %}
+<form action="/iniciarSesion/" method="POST">
+    {% csrf_token %}
+    {{ error }}
+    {{ form.as_p }}
+    <button type="submit">Cerrar sesión</button>
+</form>
+{% endblock %}

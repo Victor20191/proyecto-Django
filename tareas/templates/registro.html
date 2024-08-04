@@ -1,0 +1,16 @@
+{% extends 'templates.html'%}
+{% block content%}
+<h1>Hola Django<h1>
+{{error}}
+    <form action="/registro/" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button>
+            Enviar
+        </button>
+        
+    </form>
+
+{% endblock%}
+    
+    

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django aplicacion CRUD</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Inicio</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="/cerrarSesion">Cerrar sesión</a></li>
+                <li><a href="/tareas">Tareas</a></li>
+                <li><a href="/tareas/creacion/">Crear tareas</a></li>
+            {% else %}
+                <li><a href="/registro">Registro</a></li>
+                <li><a href="/iniciarSesion">Iniciar sesión</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
